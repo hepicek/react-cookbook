@@ -1,0 +1,9 @@
+.cardRecipe {
+    box-shadow: 0 0 12px 4px #f0f0f0;
+    cursor: pointer;
+}
+
+.cardRecipe:hover {
+    box-shadow: 0 0 12px 4px #c5c5c5;
+}
+

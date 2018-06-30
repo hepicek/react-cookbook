@@ -10,7 +10,7 @@ class RecepieList extends Component {
 
     return (
         <div>
-        <CardGroup>
+        <CardGroup className="d-flex justify-content-around">
             {data.map((item, index) => {
                 return (
                     <RecepieListItem 

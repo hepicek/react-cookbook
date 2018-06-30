@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Recepie from './Recepie';
 
 
@@ -11,46 +11,43 @@ class Detail extends Component {
             error: false,
         }
     }
+
     componentDidMount = () => {
 
         const {detailSlug} = this.props;
 
         fetch(`https://cookbook.jakubricar.cz/api/recipes/${detailSlug}`)
-        .then(response => response.json())
-        .then(resData =>{
-            this.setState({
-                data: resData,
-                loading: false,
+            .then(response => response.json())
+            .then(resData => {
+                this.setState({
+                    data: resData,
+                    loading: false,
 
+                })
             })
-        })
-        .catch(error => {
-            console.log('error', error);
-            this.setState({
-                error: error,
-                loading: false,
-                
-            })
-        });
+            .catch(error => {
+                console.log('error', error);
+                this.setState({
+                    error: error,
+                    loading: false,
+
+                })
+            });
     };
 
 
+    render() {
 
-  render() {
-
-    const {onClickHandler} = this.props;
-    const {data, error, loading} = this.state;
-    return (
-        <div>
-        <button  
-        onClick={onClickHandler}
-        >Go to list</button>
-        {loading && <div>Loading...</div>}
-        {error &&<div>Some error occured</div>}
-        {data && <Recepie data={data} />}
-        </div>
-    );
-  }
+        const {redirectToListing} = this.props;
+        const {data, error, loading} = this.state;
+        return (
+            <div>
+                {loading && <div>Loading...</div>}
+                {error && <div>Some error occured</div>}
+                {data && <Recepie redirectToListing={redirectToListing} data={data}/>}
+            </div>
+        );
+    }
 }
 
 export default Detail;

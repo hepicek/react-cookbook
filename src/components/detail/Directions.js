@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
-import './Recepie.css';
+import React, {Component} from 'react';
+
 class Directions extends Component {
-    
 
 
-  render() {
+    render() {
 
-    const {data} = this.props;
-    return (
-        <div>{data}</div>
-    );
-  }
+        const {data} = this.props;
+        return (
+            <div>{data}</div>
+        );
+    }
 }
 
 export default Directions;

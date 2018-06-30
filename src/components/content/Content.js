@@ -28,7 +28,7 @@ class Content extends Component {
         <div>
         {page === 'list' && (
           <List
-            onClickHandler={(detailSlug) => {
+              redirectToDetail={(detailSlug) => {
               this.setPage('detail', detailSlug);
             }}
           />
@@ -37,7 +37,7 @@ class Content extends Component {
         {page === 'detail' && (
           <Detail
           detailSlug={detailSlug}
-            onClickHandler={() => {
+          redirectToListing={() => {
               this.setPage('list');
             }}
           />

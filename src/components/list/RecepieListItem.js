@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import {Button, Card, CardTitle,CardBody, CardText} from 'reactstrap';
+import {Card, CardTitle,CardBody, CardText, Col} from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock } from '@fortawesome/free-regular-svg-icons';
+import './RecepieListItem.css';
 
 class RecepieListItem extends Component {
   render() {
@@ -7,18 +10,14 @@ class RecepieListItem extends Component {
     const {recepie, openDetail} = this.props;
 
     return (
-      <div style={{width: '33%'}}>
-        <Card>
-        <CardTitle>{recepie.title}</CardTitle>
+      <Col md="6" lg="4" className="my-2">
+        <Card className="cardRecipe" onClick={()=>{openDetail(recepie.slug)}}>
+        <CardTitle className="text-primary font-weight-bold m-3">{recepie.title}</CardTitle>
         <CardBody>
-          <CardText>Preperation time: {recepie.preparationTime}</CardText>
-          <Button className="primary"
-          onClick={()=>{openDetail(recepie.slug)}}
-          >Detail
-          </Button>
+          <CardText><FontAwesomeIcon icon={faClock}/> {recepie.preparationTime} min</CardText>
         </CardBody>
       </Card>
-      </div>
+      </Col>
             )
   }
 }
