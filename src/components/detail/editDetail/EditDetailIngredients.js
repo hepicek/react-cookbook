@@ -1,77 +1,85 @@
 import React, {Component} from 'react';
-import {Card, CardHeader, CardBody, InputGroup, InputGroupAddon, Input, Row, Col, Button} from 'reactstrap';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faTrashAlt, faListAlt} from '@fortawesome/free-regular-svg-icons';
+import AddIngredient from "./ingredients/AddIngredient";
+import Ingredients from "./ingredients/Ingredients";
+import AddIngredientGroup from "./ingredients/AddIngredientGroup";
 
 class EditDetailIngredients extends Component {
+    constructor(props) {
+        super(props);
+        const {ingredients} = this.props.data;
+        this.state = {
+            ingredients: {
+                amount: '',
+                amountUnit: '',
+                name: ''
+            },
+            currentIngr : ingredients,
+            group: {
+                isGroup: true,
+                name: ''
+            }
+        }
+    }
 
+    addAmount = (e) => {
+        let amount = e.target.value;
+        const newAmount = {...this.state.ingredients, amount: amount};
+        this.setState({ingredients: newAmount});
+    };
+    addUnit = (e) => {
+        let unit = e.target.value;
+        const newUnit = {...this.state.ingredients, amountUnit: unit};
+        this.setState({ingredients: newUnit});
+    };
+    addIngredient = (e) => {
+        let ingredient = e.target.value;
+        const newIngredient = {...this.state.ingredients, name: ingredient};
+        this.setState({ingredients: newIngredient});
+    };
+    addGroup = (e) => {
+        let newGroup = e.target.value;
+        const newGroupName = {...this.state.group, name: newGroup};
+        this.setState({group: newGroupName});
+
+    };
+    addIngredientGroup = () => {
+        const {updateData} = this.props.updateData;
+        const {group} =this.state;
+        const updatedIngredients = this.props.data.ingredients.concat(group);
+        this.setState((prevState) => ({currentIngr: prevState.currentIngr.concat(group)}));
+        updateData('ingredients', updatedIngredients)
+    };
+    addIngredientHandler = () => {
+        const {updateData} = this.props.updateData;
+        const {ingredients} = this.state;
+        const updatedIngredients = this.props.data.ingredients.concat(ingredients);
+        this.setState((prevState) => ({currentIngr: prevState.currentIngr.concat(ingredients)}));
+        updateData('ingredients', updatedIngredients);
+    };
+    deleteIngredientHandler = (ingredientToRemove) => {
+        const {updateData} = this.props.updateData;
+        this.setState((prevState) => ({
+            currentIngr: prevState.currentIngr.filter((ingredient) => ingredientToRemove !== ingredient.name)
+        }), () => {updateData('ingredients', this.state.currentIngr)}
+    );
+
+    };
 
     render() {
 
-        const {ingredients} = this.props.data;
-
+        const {currentIngr} = this.state;
         return (
             <div>
                 <h4>Ingredients</h4>
                 <hr/>
-                <div>
-                    {
-                        ingredients.map((item, index) => {
-                            if (item.isGroup) {
-                                return (
-                                    <Row  className="border py-2 m-0 list-group-item-warning">
-                                        <Col xs={12} className="p-0">
-                                            {item.name}
-                                        </Col>
-                                    </Row>
-                                )
-                            }
-                            return (
-
-                                <Row key={index} className="border py-2 m-0">
-                                    <Col xs={1} className="pl-1 text-primary ">
-                                        <FontAwesomeIcon icon={faTrashAlt}/>
-                                    </Col>
-                                    <Col xs={3} className="p-0 font-weight-bold">
-                                        {console.log(item)}
-                                        {item.amount} {item.amountUnit}
-                                    </Col>
-                                    <Col xs={7} className="p-0">
-                                        {item.name}
-                                    </Col>
-                                    <Col xs={1} className="p-0">
-                                        <FontAwesomeIcon icon={faListAlt}/>
-                                    </Col>
-                                </Row>
-                            )
-                        })
-                    }
-                </div>
-                <Card className="mt-2">
-                    <CardHeader>Add ingredient</CardHeader>
-                    <CardBody className="p-3">
-                        <Row className="d-flex">
-                            <Col>
-                                <Input type="text" name="amount" id="amount" placeholder="Amount"/>
-                            </Col>
-                            <Col>
-                                <Input type="text" name="unit" id="unit" placeholder="Unit"/>
-                            </Col>
-                        </Row>
-                        <InputGroup className="mt-3">
-                            <Input type="text" name="ingredient" id="ingredient" placeholder="Name"/>
-                            <InputGroupAddon addonType="append">
-                                <Button color="primary">Add</Button>
-                            </InputGroupAddon>
-                        </InputGroup>
-                    </CardBody>
-                </Card>
-                <InputGroup className="mt-3">
-                    <Input type="text" name="ingredient" id="ingredient" placeholder="New Group"/>
-                    <InputGroupAddon addonType="append">
-                        <Button color="secondary">Add</Button>
-                    </InputGroupAddon>
-                </InputGroup>
+                <Ingredients deleteIngredientHandler={this.deleteIngredientHandler} ingredients={currentIngr}/>
+                <AddIngredient
+                    addAmount={this.addAmount}
+                    addUnit={this.addUnit}
+                    addIngredient={this.addIngredient}
+                    addIngredientHandler={this.addIngredientHandler}
+                />
+                <AddIngredientGroup addGroup={this.addGroup} addIngredientGroup={this.addIngredientGroup} updateData={this.props.updateData}/>
             </div>
         );
     }

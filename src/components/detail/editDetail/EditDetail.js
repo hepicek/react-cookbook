@@ -13,9 +13,7 @@ class EditDetail extends Component {
 
 
     render() {
-
         const {title} = this.props.data;
-
         return (
             <div>
                 <Input
@@ -24,9 +22,9 @@ class EditDetail extends Component {
                     onChange={this.onChangeHandler}
                 />
                 <Row className="my-3">
-                    <Col lg="2"><EditDetailBasicInfo data={this.props.data}/></Col>
-                    <Col lg="4"><EditDetailIngredients data={this.props.data}/></Col>
-                    <Col lg="6"><EditDetailDirections data={this.props.data}/></Col>
+                    <Col lg="2"><EditDetailBasicInfo updateData={this.props} data={this.props.data}/></Col>
+                    <Col lg="4"><EditDetailIngredients updateData={this.props} data={this.props.data}/></Col>
+                    <Col lg="6"><EditDetailDirections updateData={this.props} data={this.props.data}/></Col>
                 </Row>
             </div>
         );

@@ -3,8 +3,10 @@ import {FormGroup, Input } from 'reactstrap';
 
 class EditDetailDirections extends Component {
 
-
-
+    onChangeDirectionsHandler = (event) => {
+        const {updateData} = this.props.updateData;
+        updateData('directions', event.target.value);
+    };
 
     render() {
 
@@ -15,7 +17,7 @@ class EditDetailDirections extends Component {
                 <h4>Directions</h4>
                 <hr/>
                 <FormGroup>
-                    <Input type="textarea" name="directions" rows={20} value={directions}/>
+                    <Input onChange={this.onChangeDirectionsHandler} type="textarea" name="directions" rows={20} defaultValue={directions}/>
             </FormGroup>
             </div>
         );
