@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import AddIngredient from "./ingredients/AddIngredient";
-import Ingredients from "./ingredients/Ingredients";
+import Ingredient from "./ingredients/Ingredient";
 import AddIngredientGroup from "./ingredients/AddIngredientGroup";
+import update from 'immutability-helper';
 
 class EditDetailIngredients extends Component {
     constructor(props) {
@@ -60,15 +61,36 @@ class EditDetailIngredients extends Component {
     );
 
     };
-
+    moveIngredient = (dragIndex, hoverIndex) => {
+        const { currentIngr } = this.state;
+        const dragIngr = currentIngr[dragIndex];
+        console.log(dragIngr);
+        this.setState(
+            update(this.state, {
+                currentIngr: {
+                    $splice: [[dragIndex, 1], [hoverIndex, 0, dragIngr]],
+                },
+            }),
+        );
+    };
     render() {
         const {currentIngr} = this.state;
-        console.log(currentIngr);
         return (
             <div>
                 <h4>Ingredients</h4>
                 <hr/>
-                <Ingredients deleteIngredientHandler={this.deleteIngredientHandler} ingredients={currentIngr}/>
+                {
+                    currentIngr.map((item, index) => {
+                        if (item.isGroup) {
+                            return (
+                                <Ingredient key={index} index={index} id={item._id} moveIngredient={this.moveIngredient} deleteIngredientHandler={this.deleteIngredientHandler} ingredient={item}/>
+                            )
+                        }
+                        return (
+                            <Ingredient key={index} index={index} id={item._id} moveIngredient={this.moveIngredient} deleteIngredientHandler={this.deleteIngredientHandler} ingredient={item}/>
+                        )
+                    })
+                }
                 <AddIngredient
                     addIngredientHandler={this.addIngredientHandler}
                 />
