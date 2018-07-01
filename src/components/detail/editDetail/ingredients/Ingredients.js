@@ -14,9 +14,10 @@ class Ingredients extends Component {
                             return (
                                 <Row key={index} className="border py-2 m-0 list-group-item-warning">
                                     <Col xs={1} className="px-1 text-primary ">
-                                        <div onClick={() => this.props.deleteIngredientHandler(item.name)}><FontAwesomeIcon icon={faTrashAlt}/></div>
+                                        <div onClick={() => this.props.deleteIngredientHandler(item.name)}>
+                                            <FontAwesomeIcon icon={faTrashAlt}/></div>
                                     </Col>
-                                    <Col xs={12} className="p-0">
+                                    <Col xs={10} className="p-0">
                                         {item.name}
                                     </Col>
                                     <Col xs={1} className="p-0">
@@ -29,7 +30,8 @@ class Ingredients extends Component {
 
                             <Row key={index} className="border py-2 m-0">
                                 <Col xs={1} className="px-1 text-primary ">
-                                    <div onClick={() => this.props.deleteIngredientHandler(item.name)}><FontAwesomeIcon icon={faTrashAlt}/></div>
+                                    <div onClick={() => this.props.deleteIngredientHandler(item.name)}><FontAwesomeIcon
+                                        icon={faTrashAlt}/></div>
                                 </Col>
                                 <Col xs={3} className="p-0 font-weight-bold">
                                     {item.amount} {item.amountUnit}
