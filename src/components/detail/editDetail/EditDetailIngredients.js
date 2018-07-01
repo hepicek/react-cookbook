@@ -26,9 +26,10 @@ class EditDetailIngredients extends Component {
         const {updateData} = this.props.updateData;
         const groupName = e.target.elements.group.value.trim();
         const newGroupName = {...this.state.group, name: groupName};
-        const updatedIngredients = this.props.data.ingredients.concat(newGroupName);
-        this.setState((prevState) => ({currentIngr: prevState.currentIngr.concat(newGroupName)}));
-        updateData('ingredients', updatedIngredients);
+        this.setState(
+            (prevState) => ({currentIngr: prevState.currentIngr.concat(newGroupName)}),
+            () => {updateData('ingredients', this.state.currentIngr)}
+        );
         if (newGroupName.name) {
             e.target.elements.group.value = '';
         }
@@ -41,9 +42,10 @@ class EditDetailIngredients extends Component {
         const newIngredient = {...this.state.ingredients,amount: amount, amountUnit: amountUnit, name: ingredient};
 
         const {updateData} = this.props.updateData;
-        const updatedIngredients = this.props.data.ingredients.concat(newIngredient);
-        this.setState((prevState) => ({currentIngr: prevState.currentIngr.concat(newIngredient)}));
-        updateData('ingredients', updatedIngredients);
+        this.setState(
+            (prevState) => ({currentIngr: prevState.currentIngr.concat(newIngredient)}),
+            () => {updateData('ingredients', this.state.currentIngr)}
+        );
         if (newIngredient.name || newIngredient.amount || newIngredient.amountUnit) {
             e.target.elements.amount.value = '';
             e.target.elements.unit.value = '';
@@ -52,8 +54,8 @@ class EditDetailIngredients extends Component {
     };
     deleteIngredientHandler = (ingredientToRemove) => {
         const {updateData} = this.props.updateData;
-        this.setState((prevState) => ({
-            currentIngr: prevState.currentIngr.filter((ingredient) => ingredientToRemove !== ingredient.name)
+        this.setState(
+            (prevState) => ({currentIngr: prevState.currentIngr.filter((ingredient) => ingredientToRemove !== ingredient.name)
         }), () => {updateData('ingredients', this.state.currentIngr)}
     );
 
@@ -61,6 +63,7 @@ class EditDetailIngredients extends Component {
 
     render() {
         const {currentIngr} = this.state;
+        console.log(currentIngr);
         return (
             <div>
                 <h4>Ingredients</h4>
