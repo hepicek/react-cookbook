@@ -1,24 +1,21 @@
 import React, {Component} from 'react';
-import {FormGroup, Input } from 'reactstrap';
+import {FormGroup, Input} from 'reactstrap';
 
 class EditDetailDirections extends Component {
-
-    onChangeDirectionsHandler = (event) => {
-        const {updateData} = this.props.updateData;
-        updateData('directions', event.target.value);
-    };
 
     render() {
 
         const {directions} = this.props.data;
-
         return (
-            <div>
+            <div >
                 <h4>Directions</h4>
                 <hr/>
-                <FormGroup>
-                    <Input onChange={this.onChangeDirectionsHandler} type="textarea" name="directions" rows={20} defaultValue={directions}/>
-            </FormGroup>
+                <FormGroup className="mb-1">
+                    <Input onChange={this.props.onChangeDirectionsHandler} type="textarea" name="directions" rows={20}
+                           defaultValue={directions}/>
+                </FormGroup>
+                <p className="text-right"><strong>*bold*</strong> <em>_italic_</em> *) list</p>
+
             </div>
         );
     }

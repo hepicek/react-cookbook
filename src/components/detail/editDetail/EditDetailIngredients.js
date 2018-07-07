@@ -82,7 +82,7 @@ class EditDetailIngredients extends Component {
                     currentIngr.map((item, index) => {
                         if (item.isGroup) {
                             return (
-                                <Ingredient key={index} index={index} id={item._id} moveIngredient={this.moveIngredient} deleteIngredientHandler={this.deleteIngredientHandler} ingredient={item}/>
+                                <Ingredient key={item._id} index={index} id={item._id} moveIngredient={this.moveIngredient} deleteIngredientHandler={this.deleteIngredientHandler} ingredient={item}/>
                             )
                         }
                         return (

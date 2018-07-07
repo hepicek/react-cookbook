@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
+import MarkdownIt from 'markdown-it';
 
 class Directions extends Component {
 
 
     render() {
-
+       let md = new MarkdownIt("commonmark");
         const {data} = this.props;
+
         return (
-            <div>{data}</div>
+            <div dangerouslySetInnerHTML={{__html: md.render(data)}}>
+
+            </div>
         );
     }
 }

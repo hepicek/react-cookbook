@@ -3,12 +3,6 @@ import { Button } from 'reactstrap';
 
 class RecepieHeader extends Component {
 
-    onChangeHandler = (event) => {
-        const {updateData} = this.props;
-        updateData('title', event.target.value);
-    };
-
-
     render() {
         const {title, isEditing} = this.props;
         return (
@@ -17,7 +11,7 @@ class RecepieHeader extends Component {
                 <div>
                     {!isEditing && <Button color="primary" className="mx-2" onClick={this.props.toggleEdit}>Edit</Button>}
                     {isEditing && <Button color="success" onClick={this.props.sentUpdatedData}>Save changes</Button>}
-                    {!isEditing && <Button color="danger">Delete</Button>}
+                    {!isEditing && <Button onClick={this.props.deleteUpdatedData} color="danger">Delete</Button>}
                 </div>
             </div>
         );
